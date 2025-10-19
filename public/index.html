@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chit Fund Management System</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    /* ✅ Background applied to the entire body */
+    body {
+
+        background: 
+  linear-gradient(rgba(15, 98, 254, 0.6), rgba(0, 0, 0, 0.6)),
+  url('./sampleImages/shivaji.jpg') no-repeat center 65px fixed;
+
+      background-size: cover;
+      color: white;
+      min-height: 100vh;
+    }
+
+    header {
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      padding: 18px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      backdrop-filter: blur(6px);
+    }
+
+    .brand {
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    nav a {
+      color: white;
+      margin-left: 20px;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .hero {
+      text-align: center;
+      margin-top: 60px;
+      padding: 140px 20px 60px;
+    }
+
+    .hero h1 {
+      font-size: 2.8rem;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      margin-bottom: 20px;
+    }
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+.hero-buttons button {
+  margin: 10px;
+  padding: 12px 24px;
+  border: 2px solid white;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+  background: transparent;   /* default transparent */
+  color: white;              /* default text color */
+  font-weight: 600;
+}
+
+/* Highlighted button */
+.hero-buttons button.active {
+  background: white;
+  color: #0f62fe;
+}
+.hero-buttons button:hover {
+    background: rgba(255, 255, 255, 0.15);
+    animation: blink 0.8s infinite;
+}
+
+    /* ✅ Features section */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 60px 40px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .feature-card {
+      background: rgba(255, 255, 255, 0.15);
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      backdrop-filter: blur(6px);
+    }
+
+    .feature-card h3 {
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .feature-card p {
+      color: #e0e0e0;
+      font-size: 0.95rem;
+    }
+
+    footer {
+      background: rgba(0, 0, 0, 0.6);
+      color: white;
+      text-align: center;
+      padding: 18px 10px;
+      font-size: 0.9rem;
+      margin-top: 60px;
+      backdrop-filter: blur(4px);
+    }
+.modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  backdrop-filter: blur(3px);
+}
+.title{
+    margin-bottom: 20px;
+}
+
+.modal-content {
+  background: rgba(255,255,255,0.15);
+  padding: 30px;
+  border-radius: 10px;
+  width: 320px;
+  color: #fff;
+  text-align: left;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.modal-content input {
+  width: 100%;
+  padding: 8px;
+  margin: 8px 0 16px;
+  border: none;
+  border-radius: 5px;
+}
+
+.modal-content button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  background: #0f62fe;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.close-btn {
+  float: right;
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">💰 Chit Fund Management</div>
+    <nav>
+      <a href="#features">Features</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Welcome to Chit Fund Management System</h1>
+    <p>Manage your chit fund groups, members, and auctions seamlessly in one platform.</p>
+    <div class="hero-buttons">
+      <button class="btn-login" id="signin-btn">Login</button>
+      <button class="btn-register" id="signup-btn">Register</button>
+    </div>
+  </section>
+<div class="modal" id="loginModal">
+  <div class="modal-content">
+    <span class="close-btn" id="closeLogin">&times;</span>
+    <h2 class="title">Login</h2>
+    <form>
+      <label>Email</label>
+      <input type="email" placeholder="Enter Email" required>
+      <label>Password</label>
+      <input type="password" placeholder="Enter Password" required>
+      <button type="submit">Login</button>
+    </form>
+  </div>
+</div>
+
+<!-- ✅ Register Modal -->
+<div class="modal" id="registerModal">
+  <div class="modal-content">
+    <span class="close-btn" id="closeRegister">&times;</span>
+    <h2 class="title">Register</h2>
+    <form>
+      <label>Username</label>
+      <input type="text" placeholder="Enter Username" required>
+      <label>Email</label>
+      <input type="email" placeholder="Enter Email" required>
+      <label>Password</label>
+      <input type="password" placeholder="Enter Password" required>
+      <label>Confirm Password</label>
+      <input type="password" placeholder="Confirm Password" required>
+      <button type="submit">Register</button>
+    </form>
+  </div>
+</div>
+  <section id="features" class="features">
+    <div class="feature-card">
+      <h3>👥 Member Management</h3>
+      <p>Keep track of all your members, contributions, and participation with ease.</p>
+    </div>
+
+    <div class="feature-card">
+      <h3>💸 Auction Tracking</h3>
+      <p>Manage and monitor chit auctions, winners, and payouts efficiently.</p>
+    </div>
+
+    <div class="feature-card">
+      <h3>📊 Reports & Analytics</h3>
+      <p>Generate and view monthly reports of fund collections and auction outcomes.</p>
+    </div>
+
+    <div class="feature-card">
+      <h3>🔐 Secure Access</h3>
+      <p>Login and registration system ensures data privacy and secure user access.</p>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 Chit Fund Management System | Designed for transparency and simplicity
+  </footer>
+</body>
+<script>
+const loginBtn = document.getElementById("signin-btn");
+const registerBtn = document.getElementById("signup-btn");
+const loginModal = document.getElementById("loginModal");
+const registerModal = document.getElementById("registerModal");
+
+function resetActive() {
+  loginBtn.classList.remove("active");
+  registerBtn.classList.remove("active");
+}
+
+// ✅ Open Modals
+loginBtn.onclick = () => {
+  resetActive();
+  loginBtn.classList.add("active");
+  loginModal.style.display = "flex";
+  registerModal.style.display = "none";
+};
+
+registerBtn.onclick = () => {
+  resetActive();
+  registerBtn.classList.add("active");
+  registerModal.style.display = "flex";
+  loginModal.style.display = "none";
+};
+
+// ✅ Close Modals
+document.getElementById("closeLogin").onclick = () => {
+  loginModal.style.display = "none";
+  resetActive();
+};
+document.getElementById("closeRegister").onclick = () => {
+  registerModal.style.display = "none";
+  resetActive();
+};
+
+// ✅ Handle Registration
+document.querySelector("#registerModal form").onsubmit = async (e) => {
+  e.preventDefault();
+  const username = e.target[0].value;
+  const email = e.target[1].value;
+  const password = e.target[2].value;
+  const confirm = e.target[3].value;
+
+  if (password !== confirm) {
+    alert("Passwords do not match!");
+    return;
+  }
+
+  const response = await fetch("http://localhost:8000/register", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ username, email, password }),
+  });
+
+  const data = await response.json();
+  alert(data.message);
+  if (data.success) {
+    registerModal.style.display = "none";
+  }
+};
+
+// ✅ Handle Login
+document.querySelector("#loginModal form").onsubmit = async (e) => {
+  e.preventDefault();
+  const email = e.target[0].value;
+  const password = e.target[1].value;
+
+  const response = await fetch("http://localhost:8000/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password }),
+  });
+
+  const data = await response.json();
+  alert(data.message);
+  if (data.success) {
+    window.location.href = "interface/dashboard.html";
+  }
+};
+</script>
+
+</html>
