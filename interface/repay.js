@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const searchInput = document.querySelector("#loanSearchInput");
 
   try {
-    const res = await fetch("http://localhost:8000/users");
+    const res = await fetch("https://chit-fund-management.onrender.com/users");
     const users = await res.json();
 
     // Filter only users with pending amount > 0
@@ -122,7 +122,7 @@ function openPaymentModal(user) {
 
     try {
       // Step 1️⃣: Update user's pending amount
-      const updateRes = await fetch(`http://localhost:8000/users/${user.id}`, {
+      const updateRes = await fetch(`https://chit-fund-management.onrender.com/users/${user.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -147,7 +147,7 @@ function openPaymentModal(user) {
         payment_date: new Date().toLocaleString(),
       };
 
-      const transactionRes = await fetch("http://localhost:8000/transactions", {
+      const transactionRes = await fetch("https://chit-fund-management.onrender.com/transactions", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(transaction)

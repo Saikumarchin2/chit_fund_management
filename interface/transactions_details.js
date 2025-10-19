@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 async function loadTransactions() {
   const tableBody = document.getElementById("transactionTableBody");
   try {
-    const res = await fetch("http://localhost:8000/transactions");
+    const res = await fetch("https://chit-fund-management.onrender.com/transactions");
     transactions = await res.json();
     renderTable(transactions);
   } catch (err) {

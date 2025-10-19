@@ -20,7 +20,7 @@ let editForm = {};
 // ================================
 async function fetchUsers() {
   try {
-    const response = await fetch("http://localhost:8000/users");
+    const response = await fetch("https://chit-fund-management.onrender.com/users");
     users = await response.json();
     filteredUsers = [...users];
     renderMembersTable();
@@ -109,7 +109,7 @@ function handleEditChange(e) {
 
 async function handleSave(id) {
   try {
-    const res = await fetch(`http://localhost:8000/users/${id}`, {
+    const res = await fetch(`https://chit-fund-management.onrender.com/users/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(editForm)
@@ -135,7 +135,7 @@ function handleCancel() {
 async function handleDelete(id) {
   if (!confirm("Are you sure you want to delete this user?")) return;
   try {
-    const res = await fetch(`http://localhost:8000/users/${id}`, { method: "DELETE" });
+    const res = await fetch(`https://chit-fund-management.onrender.com/users/${id}`, { method: "DELETE" });
     if (!res.ok) throw new Error("Failed to delete user");
     fetchUsers();
   } catch (error) {
@@ -173,7 +173,7 @@ addMemberForm.addEventListener("submit", async (e) => {
   };
 
   try {
-    const res = await fetch("http://localhost:8000/users", {
+    const res = await fetch("https://chit-fund-management.onrender.com/users", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newMember)
