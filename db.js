@@ -1,6 +1,6 @@
 // db.js
-import mysql from 'mysql2';
-import dotenv from 'dotenv';
+const mysql = require('mysql2');
+const dotenv =  require('dotenv');
 dotenv.config();
 
 // ✅ Create connection pool
