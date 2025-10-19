@@ -1,10 +1,9 @@
-// db.js
 const mysql = require('mysql2');
-const dotenv =  require('dotenv');
+const dotenv = require('dotenv');
 dotenv.config();
 
 // ✅ Create connection pool
-const db = mysql.createPool({ 
+const db = mysql.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
@@ -25,9 +24,7 @@ async function show() {
 
 async function getuser(id) {
   try {
-    const [rows] = await db.query(
-      `SELECT * FROM users_details WHERE id = ?`, [id]
-    );
+    const [rows] = await db.query(`SELECT * FROM users_details WHERE id = ?`, [id]);
     return rows;
   } catch (error) {
     console.error("Error fetching user by ID:", error);
@@ -38,7 +35,7 @@ async function insertdata(name, phn, status, loan_amt, pending) {
   try {
     const [rows] = await db.query(
       `INSERT INTO users_details (name, phn, status, loan_amt, pending)
-       VALUES (?, ?, ?, ?, ?)`, 
+       VALUES (?, ?, ?, ?, ?)`,
       [name, phn, status, loan_amt, pending]
     );
     const gets = await getuser(rows.insertId);
@@ -120,7 +117,7 @@ async function loginUser(email, password) {
 }
 
 // ========================
-// Transaction Model
+// TRANSACTION FUNCTIONS
 // ========================
 async function transaction_details(
   user_id,
@@ -144,7 +141,6 @@ async function transaction_details(
       previous_pending,
       new_pending
     ]);
-
     return { success: true, insertId: result.insertId };
   } catch (err) {
     console.error("Error inserting transaction details:", err);
@@ -174,8 +170,8 @@ async function transaction_show() {
   }
 }
 
-// ✅ Single export statement (NO DUPLICATES)
-export {
+// ✅ Use CommonJS export
+module.exports = {
   show,
   getuser,
   insertdata,
