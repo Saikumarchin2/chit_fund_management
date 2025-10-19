@@ -1,0 +1,26 @@
+{
+  "name": "chatrapathi_shivaji",
+  "version": "1.0.0",
+  "description": "A web-based **Chitfund Management System** that allows users to manage chit funds, track transactions, and generate reports efficiently. Built with **HTML, CSS, JavaScript**, and optionally a backend API for data management.",
+  "homepage": "https://github.com/Saikumarchin2/chit_fund_management#readme",
+  "bugs": {
+    "url": "https://github.com/Saikumarchin2/chit_fund_management/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Saikumarchin2/chit_fund_management.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "backendServer.js",
+  "scripts": {
+    "start": "node backendServer.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "mysql": "^2.18.1"
+  }
+}
